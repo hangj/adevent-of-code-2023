@@ -76,6 +76,7 @@ pub fn solve() {
 
     println!("sum: {}", sum);
 
+    // part two
     let sum = input.iter()
         .fold(0, |acc, s| {
             acc + find_first_digit(s) * 10 + find_last_digit(s)
@@ -84,84 +85,16 @@ pub fn solve() {
 }
 
 
-use literal_enum::LiteralEnum;
 use regex::Regex;
-
-#[derive(LiteralEnum)]
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
-enum Digit {
-    #[lit = "1"]
-    D1,
-    #[lit = "2"]
-    D2,
-    #[lit = "3"]
-    D3,
-    #[lit = "4"]
-    D4,
-    #[lit = "5"]
-    D5,
-    #[lit = "6"]
-    D6,
-    #[lit = "7"]
-    D7,
-    #[lit = "8"]
-    D8,
-    #[lit = "9"]
-    D9,
-
-    #[lit = "one"]
-    One,
-    #[lit = "two"]
-    Two,
-    #[lit = "three"]
-    Three,
-    #[lit = "four"]
-    Four,
-    #[lit = "five"]
-    Five,
-    #[lit = "six"]
-    Six,
-    #[lit = "seven"]
-    Seven,
-    #[lit = "eight"]
-    Eight,
-    #[lit = "nine"]
-    Nine,
-}
-
-impl Digit {
-    pub fn to_digit(&self) -> u32 {
-        match self {
-            Digit::D1 => 1,
-            Digit::D2 => 2,
-            Digit::D3 => 3,
-            Digit::D4 => 4,
-            Digit::D5 => 5,
-            Digit::D6 => 6,
-            Digit::D7 => 7,
-            Digit::D8 => 8,
-            Digit::D9 => 9,
-            Digit::One => 1,
-            Digit::Two => 2,
-            Digit::Three => 3,
-            Digit::Four => 4,
-            Digit::Five => 5,
-            Digit::Six => 6,
-            Digit::Seven => 7,
-            Digit::Eight => 8,
-            Digit::Nine => 9,
-        }
-    }
-}
 
 fn find_first_digit(s: &str) -> u32 {
     let reg = Regex::new("([0-9]|one|two|three|four|five|six|seven|eight|nine)").unwrap();
     if let Some(caps) = reg.captures(s) {
         let s = caps.get(0).unwrap().as_str();
-        let d = Digit::try_from(s).unwrap();
-        return d.to_digit();
+        str_to_u32(s)
+    } else {
+        0
     }
-    0
 }
 
 fn find_last_digit(s: &str) -> u32 {
@@ -169,10 +102,35 @@ fn find_last_digit(s: &str) -> u32 {
     if let Some(caps) = reg.captures(s) {
         // println!("caps[0]: {}", caps.get(0).unwrap().as_str());
         let s = caps.get(1).unwrap().as_str();
-        let d = Digit::try_from(s).unwrap();
-        return d.to_digit();
+        str_to_u32(s)
+    } else {
+        0
     }
-    0
+}
+
+fn str_to_u32(s: &str) -> u32 {
+    match s {
+        "0" => 0,
+        "1" => 1,
+        "2" => 2,
+        "3" => 3,
+        "4" => 4,
+        "5" => 5,
+        "6" => 6,
+        "7" => 7,
+        "8" => 8,
+        "9" => 9,
+        "one" => 1,
+        "two" => 2,
+        "three" => 3,
+        "four" => 4,
+        "five" => 5,
+        "six" => 6,
+        "seven" => 7,
+        "eight" => 8,
+        "nine" => 9,
+        _ => 0,
+    }
 }
 
 #[test]
