@@ -3,7 +3,7 @@
 version = 3
 
 [[package]]
-name = "adevent-of-code-2023"
+name = "advent-of-code-2023"
 version = "0.1.0"
 dependencies = [
  "literal-enum",
