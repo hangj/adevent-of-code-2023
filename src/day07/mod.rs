@@ -12,6 +12,10 @@ impl Hand {
         Self { cards, bid }
     }
 
+    /// Calculate the score of this hand, the returned value `score` is a `[char; 6]`
+    /// `score[0]` is the score of the hand-type, the following `chars` is the score of cards:
+    /// 
+    /// `score[1..] = calculate_score(cards[0..])`
     pub fn to_score(&self) -> [char; 6] {
         let mut score = ['0'; 6];
         let mut cards = self.cards;
