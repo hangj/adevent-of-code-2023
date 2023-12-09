@@ -7,16 +7,19 @@ fn generate_next_number(arr: Vec<i64>) -> (i64, i64) {
 
     let mut sign = -1;
 
+    let mut additional_sequence = vec![];
+
     loop {
         if cur_arr.iter().all(|v|*v==0) { break; }
 
-        let mut additional_sequence = vec![];
+        additional_sequence.clear();
         for i in 0..cur_arr.len()-1 {
             let diff = cur_arr[i+1] - cur_arr[i];
             additional_sequence.push(diff);
         }
 
-        cur_arr = additional_sequence;
+        std::mem::swap(&mut cur_arr, &mut additional_sequence);
+
         sum += *cur_arr.last().unwrap();
 
         new_first += *cur_arr.first().unwrap() * sign;
