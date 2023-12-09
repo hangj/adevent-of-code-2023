@@ -40,10 +40,12 @@ fn solve() {
                 .filter(|s|!s.is_empty())
                 .map(|s|s.parse::<i64>().unwrap())
                 .collect::<Vec<_>>();
-            generate_next_number(nums).0
+            generate_next_number(nums)
         })
-        .sum::<i64>();
-    println!("sum: {}", sum);
+        .fold((0, 0), |acc, v| {
+            (acc.0 + v.0, acc.1 + v.1)
+        });
+    println!("sum: {:?}", sum);
 }
 
 
